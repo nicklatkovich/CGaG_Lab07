@@ -32,6 +32,7 @@ namespace CGaG.Lab07 {
 
         Color[ ] AxesColors;
         Color PyramidColor = Color.White;
+        Color LightColor = Color.Red;
 
         Color BackColor = new Color(1f, 1f, 1f);
 
@@ -167,7 +168,12 @@ namespace CGaG.Lab07 {
                         Vector3 toLight = SimpleUtils.SphereToCart(SphereLightPosition);
                         float colorAngle = (float)Math.Abs(Math.Acos(Vector3.Dot(normal, toLight) / (normal.Length( ) * toLight.Length( ))));
                         float light = -2f / (float)Math.PI * colorAngle + 1f;
-                        facesColors[i] = new Color(light, light, light);
+                        Vector3 pyramidColor = PyramidColor.ToVector3( );
+                        Vector3 lightColor = LightColor.ToVector3( );
+                        facesColors[i] = new Color(
+                            pyramidColor.X * lightColor.X * light,
+                            pyramidColor.Y * lightColor.Y * light,
+                            pyramidColor.Z * lightColor.Z * light);
                         Points[Faces[i].Item1].Color = facesColors[i];
                         Points[Faces[i].Item2].Color = facesColors[i];
                         Points[Faces[i].Item3].Color = facesColors[i];
